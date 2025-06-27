@@ -18,8 +18,8 @@ Feature: Test de API súper simple
     And print response
     And match response contains deep { name: 'Peaky Power', powers:  ["Random",  "Full"  ] }
 
-  @listCharacter
-  Scenario: Obtener persona por ID no existente y devuelva 404
+  @ObtainCharacterInvalidByIdNotExist
+  Scenario: Obtener personaje por ID no existente y devuelva 404
     Given url urlBase + '/testuser/api/characters/99'
     When method get
     Then status 404
