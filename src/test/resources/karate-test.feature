@@ -18,11 +18,18 @@ Feature: Test de API súper simple
     And print response
     And match response contains deep { name: 'Peaky Power', powers:  ["Random",  "Full"  ] }
 
+  @listCharacter
+  Scenario: Obtener persona por ID no existente y devuelva 404
+    Given url urlBase + '/testuser/api/characters/99'
+    When method get
+    Then status 404
+    And match response.error == 'Character not found'
+    And print response
 
   @createCharacterValid
-  Scenario: Crear personaje Valid
+  Scenario: Crear personaje Valido
     Given url urlBase + '/testuser/api/characters'
-    And request {  "id": 2345,  "name": "Hombre araña",  "alterego": "Fuerte",  "description": "Super Heroe",  "powers": ["Fuerza", "Verde"]  }
+    And request {  "id": 789,  "name": "Spiderman",  "alterego": "Fuerte",  "description": "Super Heroe",  "powers": ["Voluntad", "Fuerza"]  }
     When method POST
     Then status 201
     And print response
@@ -38,7 +45,7 @@ Feature: Test de API súper simple
 
     @deleteCharacterValid
     Scenario: Eliminar personaje por Id Exitoso
-    Given url urlBase + '/testuser/api/characters/4'
+    Given url urlBase + '/testuser/api/characters/5'
     When method DELETE
     Then status 204
     And print response
